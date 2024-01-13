@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 function SignUp() {
   return (
     <div className="p-3 max-w-lg mx-auto">
+<<<<<<< HEAD
       <h1 className="text-3xl text-center font-semibold my-7">Sign Up</h1>
+=======
+      <h1 className="text-xl text-center font-semibold my-7">Sign Up</h1>
+>>>>>>> d6781ef146f45f0b75d3656a336d83f2a3568ade
       <form className="flex flex-col gap-4">
         <input
           type="text"
