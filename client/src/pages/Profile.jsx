@@ -144,6 +144,22 @@ function Profile() {
     }
   };
 
+const handleListingDelete = async (listingId) => {
+  try {
+    const res = await fetch(`api/listing/delete/${listingId}`, {
+      method : "DELETE"
+    });
+    const data = await res.json();
+    if(data.sucess === false){
+      console.log(data.message);
+      return;
+    }
+    setUserListings((prevValue) => prevValue.filter((listing)=> listing._id !== listingId));
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
   return (
     <div className="max-w-lg mx-auto ">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
@@ -243,8 +259,7 @@ function Profile() {
         <div className="flex flex-col gap-4">
           <h1 className="text-2xl font-semibold text-center">Your Listings</h1>
           {userListings.map((listing) => {
-          return (
-            <div>              
+          return (         
               <div
                 key={listing._id}
                 className="border flex items-center gap-4 justify-between rounded-lg p-3"
@@ -260,11 +275,10 @@ function Profile() {
                   <p>{listing.name}</p>
                 </Link>
                 <div className="flex flex-col gap-2">
-                  <button className="text-red-700 uppercase">Delete</button>
+                  <button onClick={()=>handleListingDelete(listing._id)} className="text-red-700 uppercase">Delete</button>
                   <button className="text-green-700 uppercase">Edit</button>
                 </div>
               </div>
-            </div>
           );
         })}
         </div>
