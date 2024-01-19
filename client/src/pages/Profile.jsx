@@ -272,7 +272,7 @@ function Profile() {
                     alt="listing cover"
                   />
                 </Link>
-                <Link className="text-slate-700 font-semibold flex-1 truncate hover:underline">
+                <Link to={`/listing/${listing._id}`} className="text-slate-700 font-semibold flex-1 truncate hover:underline">
                   <p>{listing.name}</p>
                 </Link>
                 <div className="flex flex-col gap-2">
