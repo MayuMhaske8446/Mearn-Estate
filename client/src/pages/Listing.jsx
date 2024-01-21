@@ -84,7 +84,7 @@ function Listing() {
               </p>
               {listing.offer && (
                 <p className="bg-green-900 w-full max-w-[200px] p-2 text-center text-white rounded-md">
-                  ${+listing.regularPrice - +listing.discountPrice}
+                  ${+listing.regularPrice - +listing.discountPrice} Discount
                 </p>
               )}
             </div>
