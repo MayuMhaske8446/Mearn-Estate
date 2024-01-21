@@ -6,6 +6,7 @@ function Search() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
+  const [showMore, setShowmore] = useState(false);
   const [sidebarData, setSidebarData] = useState({
     searchTerm: "",
     type: "all",
@@ -51,6 +52,12 @@ function Search() {
       const searchQuery = urlParams.toString();
       const res = await fetch(`/api/listing/get?${searchQuery}`);
       const data = await res.json();
+      if(data.length > 8){
+        setShowmore(true)
+      }else{
+        setShowmore(false);
+      };
+      console.log(data.length);
       setListings(data);
       setLoading(false);
     };
@@ -104,7 +111,21 @@ function Search() {
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
   };
-  console.log(listings);
+  
+  const handleShowMoreClick = async (e) => {
+    const numberOfListings = listings.length;
+    const startIndex = numberOfListings;
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set("startIndex", startIndex);
+    const searchQuery = urlParams.toString();
+    const res = await fetch(`/api/listing/get?${searchQuery}`);
+    const data = await res.json();
+    if(data.length < 9){
+      setShowmore(false);
+    }
+    setListings([...listings, ...data])
+  }
+
   return (
     <div className="flex flex-col md:flex-row">
       <div className="p-7 border-b-2 md:border-r-2 md:min-h-screen">
@@ -225,7 +246,14 @@ function Search() {
                 )
               })
             }
-          </div>
+            {showMore && (
+              <button 
+                className="text-green-700 p-7 hover:underline text-center w-full"
+                onClick={handleShowMoreClick}>
+                Show More
+              </button>
+            )}
+          </div>          
       </div>
     </div>
   );
