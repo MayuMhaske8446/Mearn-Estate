@@ -6,7 +6,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css/bundle";
 import { FaBath, FaBed, FaChair, FaMapMarkerAlt, FaParking } from "react-icons/fa";
 import {useSelector} from "react-redux";
-import Contact from "../components/Contact";
+import Contact from "../components/Contact.jsx";
 
 function Listing() {
   const {currentUser} = useSelector((state) => state.user);

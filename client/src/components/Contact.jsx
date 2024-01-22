@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 function Contact({ listing }) {
   const [landlord, setLandlord] = useState(null);
-
+  const [message, setMessage] = useState("");
   useEffect(() => {
     const fetchLandlord = async () => {
-      try {
+      try {        
         const res = await fetch(`/api/user/${listing.userRef}`);
         const data = await res.json();
         setLandlord(data);
@@ -17,7 +17,9 @@ function Contact({ listing }) {
 
     fetchLandlord();
   }, [listing.userRef]);
-  console.log(landlord);
+  const handleMessageChange = (e) => {
+    setMessage(e.target.value);
+  }
   return (
     <div>
       {landlord && (
@@ -33,6 +35,8 @@ function Contact({ listing }) {
             rows="2"
             placeholder="Enter your message here!"
             className="w-full border border-gray-300 p-3 rounded-lg"
+            value={message}
+            onChange={handleMessageChange}
           />
           <Link
           to={`mailto:${landlord.email}?subject=regarding ${listing.name}&body=${message}`}
